@@ -467,6 +467,7 @@ class Article < Content
     return from..to
   end
 
+  public
   def merge(merge_article_id)
     #debugger
     merge_article = Article.find(merge_article_id)

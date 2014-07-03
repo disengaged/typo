@@ -7,14 +7,13 @@ Feature: Merge Articles
     Given the blog is set up
     And I am logged into the admin panel
     And the following articles exist
-      | id | title      | body         |
-      | 2  | Primary   | LoremIpsum   |
-      | 3  | Duplicate | DolorSitAmet |
+      | title     | body         |
+      | Primary   | LoremIpsum   |
+      | Duplicate | DolorSitAmet |
 
   Scenario: Successfully merge articles
     Given I am on the article edit page for "Primary"
-    And show me the page
-    And I fill in "merge_with" with "3"
+    And I fill in "merge_with" with the id of the article with title "Duplicate"
     And I press "Merge"
-    Then the article "Primary" should have body "LoremIpsum DolorSitAmet"
-    And show me the page
+    Then the article "Primary" should have body "LoremIpsumDolorSitAmet"
+
