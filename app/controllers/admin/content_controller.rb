@@ -115,12 +115,12 @@ class Admin::ContentController < Admin::BaseController
 
   def merge
     #debugger
-    if params[:id] == params[:merge][:with]
+    if params[:id] == params[:merge_with]
       flash[:notice] = _('Cannot merge with the same article')
       redirect_to :action => 'index'
     else
       @article = Article.find(params[:id])
-      if @article.merge(params[:merge][:with])
+      if @article.merge(params[:merge_with])
         set_the_flash
         redirect_to :action => 'index'
       else
