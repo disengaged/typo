@@ -113,6 +113,23 @@ class Admin::ContentController < Admin::BaseController
     render :text => nil
   end
 
+  def merge
+    #debugger
+    if params[:id] == params[:merge][:with]
+      flash[:notice] = _('Cannot merge with the same article')
+      redirect_to :action => 'index'
+    else
+      @article = Article.find(params[:id])
+      if @article.merge(params[:merge][:with])
+        set_the_flash
+        redirect_to :action => 'index'
+      else
+        flash[:notice] = _('Article merge failed.')
+        redirect_to :action => 'index'
+      end
+    end
+  end
+
   protected
 
   def get_fresh_or_existing_draft_for_article
@@ -189,6 +206,8 @@ class Admin::ContentController < Admin::BaseController
       flash[:notice] = _('Article was successfully created')
     when 'edit'
       flash[:notice] = _('Article was successfully updated.')
+    when 'merge'
+      flash[:notice] = _('Article was successfully merged.')
     else
       raise "I don't know how to tidy up action: #{params[:action]}"
     end

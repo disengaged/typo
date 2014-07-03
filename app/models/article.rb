@@ -466,4 +466,16 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+
+  def merge(merge_article_id)
+    #debugger
+    merge_article = Article.find(merge_article_id)
+    if merge_article.id != self.id and merge_article
+      self.body = self.body + merge_article.body
+      self.save!
+      merge_article.destroy
+      return true
+    end
+    return false
+  end
 end
