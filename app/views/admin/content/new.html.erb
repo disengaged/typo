@@ -8,7 +8,7 @@
     <h3><%= _("Merge Articles")%></h3>
     <label for="merge_with"><%= _("Article ID")%></label>
     <div class='input'>
-      <%= text_field :merge, :with, :class => 'large'  %>
+      <%= text_field :merge, :with, :id => 'merge_with', :class => 'large'  %>
     </div>
     <%= submit_tag(_("Merge"), {:class => 'btn'}) %>
   </div>
