@@ -468,11 +468,15 @@ class Article < Content
   end
 
   def merge(merge_article_id)
-    #debugger
     merge_article = Article.find(merge_article_id)
     if merge_article.id != self.id and merge_article
       self.body = self.body + merge_article.body
+      merge_article.comments.each do |comment|
+        comment.article_id = self.id
+        comment.save!
+      end
       self.save!
+      merge_article = Article.find(merge_article_id)
       merge_article.destroy
       return true
     end
